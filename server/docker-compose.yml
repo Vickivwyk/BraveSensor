@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  db:
+    command: -c ssl=on -c ssl_cert_file=/var/lib/postgresql/tls.crt -c ssl_key_file=/var/lib/postgresql/tls.key
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - psql-data:/var/lib/postgresql/data
+      - ./psql_ssl/tls.crt:/var/lib/postgresql/tls.crt
+      - ./psql_ssl/tls.key:/var/lib/postgresql/tls.key
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    
+
+volumes:
+  psql-data: 
+

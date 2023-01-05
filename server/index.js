@@ -1,4 +1,5 @@
 // Third-party dependencies
+require('tls').DEFAULT_MIN_VERSION = 'TLSv1';
 const express = require('express')
 const fs = require('fs')
 const https = require('https')

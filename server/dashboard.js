@@ -607,10 +607,17 @@ async function submitLogin(req, res) {
   const username = req.body.username
   const password = req.body.password
 
+  envu = helpers.getEnvVar('WEB_USERNAME')
+  envp = helpers.getEnvVar('PASSWORD')
+  console.log(username, password, envu, envp)
+  
+
   if (username === helpers.getEnvVar('WEB_USERNAME') && password === helpers.getEnvVar('PASSWORD')) {
     req.session.user = username
+    console.log("username match")
     res.redirect('/dashboard')
   } else {
+    console.log("Does not match")
     res.redirect('/login')
   }
 }
